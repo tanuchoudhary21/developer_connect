@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
 
@@ -46,16 +47,21 @@ router.post('/signin', async(req, res) => {
     try {
         const userLogin = await User.findOne({email: email});
 
-        if (userLogin) {
-            return res.status(200).json({message: "You are logged in"});
+        if(userLogin) {
+            const isMatch = await bcrypt.compare(password, userLogin.password);
+            if (isMatch) {
+                return res.status(200).json({message: "You are logged in"});
+            } else {
+                return res.status(404).json({error: "Invalid Crendential"});
+            }
         } else {
-            return res.status(404).json({error: "User does not exist"});
+            return res.status(404).json({error: "Invalid Crendential"});
         }
+        
 
     } catch (err) {
         console.log(err);
     }
-
     
 });
 
