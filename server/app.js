@@ -4,7 +4,9 @@ const express = require('express');
 
 const app = express();
 dotenv.config({path: './config.env'}); //we don't have to write it over and over again
+
 require('./db/connection');
+const User = require('./model/userSchema');
 
 const PORT = process.env.PORT;
 
