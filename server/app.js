@@ -6,7 +6,11 @@ const app = express();
 dotenv.config({path: './config.env'}); //we don't have to write it over and over again
 
 require('./db/connection');
-const User = require('./model/userSchema');
+// const User = require('./model/userSchema');
+
+app.use(express.json());
+
+app.use(require('./router/auth')); // here we link router files 
 
 const PORT = process.env.PORT;
 
@@ -14,12 +18,6 @@ const middleware = (req, res, next) => {
     console.log("Added middleware");
     next();
 };
-
-
-
-app.get('/' , (req, res) => {
-    res.send(`Hello world`);
-});
 
 app.get('/about' ,middleware, (req, res) => {
     res.send(`Hello world, about us page`);
