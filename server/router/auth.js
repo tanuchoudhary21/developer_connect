@@ -21,14 +21,35 @@ router.post('/register', async(req, res) => {
 
         if (userExist) {
             return res.status(422).json({error: "Email already Exists"});
-        }
-
-        const user = new User({name, email, phone, work, password, cpassword});
-
-        const userResigter = user.save();
-
-        if (userResigter) {
+        } else if (password != cpassword) {
+            return res.status(422).json({error: "Password are not matching"});
+        }else {
+            const user = new User({name, email, phone, work, password, cpassword});
+            await user.save();
             res.status(201).json({message: "User registered successfully"});
+        }
+        
+    } catch (err) {
+        console.log(err);
+    }
+   
+});
+
+
+router.post('/signin', async(req, res) => {
+    const {email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({error: "Please fill all the data field"});
+    }
+
+    try {
+        const userLogin = await User.findOne({email: email});
+
+        if (userLogin) {
+            return res.status(200).json({message: "You are logged in"});
+        } else {
+            return res.status(404).json({error: "User does not exist"});
         }
 
     } catch (err) {
