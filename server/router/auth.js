@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const router = express.Router();
@@ -49,6 +50,8 @@ router.post('/signin', async(req, res) => {
 
         if(userLogin) {
             const isMatch = await bcrypt.compare(password, userLogin.password);
+            const token = await userLogin.generateAuthToken();
+            console.log(token);
             if (isMatch) {
                 return res.status(200).json({message: "You are logged in"});
             } else {
