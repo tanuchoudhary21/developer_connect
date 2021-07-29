@@ -1,14 +1,16 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
+import { NavLink } from "react-router-dom";
+
 
 const Navbar = () => {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar sticky-top navbar-expand-lg navbar-light bg-white">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
-            Profiler
-          </a>
+          <NavLink className="navbar-brand" to="/">
+            PROFILER
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -23,29 +25,29 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <NavLink className="nav-link active" aria-current="page" to="/">
                   Home
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/about">
                   About Us
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/contact">
                   Contact
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/signin">
                   Login
-                </a>
+                </NavLink>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <NavLink className="nav-link" to="/register">
                   Register
-                </a>
+                </NavLink>
               </li>
             </ul>
           </div>
