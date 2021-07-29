@@ -52,6 +52,10 @@ router.post('/signin', async(req, res) => {
             const isMatch = await bcrypt.compare(password, userLogin.password);
             const token = await userLogin.generateAuthToken();
             console.log(token);
+            res.cookie("jwtoken", token, {
+                expires: new Date(Date.now() + 25892000000),
+                httpOnly: true
+            });
             if (isMatch) {
                 return res.status(200).json({message: "You are logged in"});
             } else {
@@ -94,3 +98,4 @@ router.post('/signin', async(req, res) => {
 // });
 
 module.exports = router;
+
